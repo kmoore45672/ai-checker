@@ -29,18 +29,17 @@ input_text = st.text_area("Enter text:", height=300)
 if st.button("Check Text") and input_text:
     with st.spinner("Analyzing..."):
         model, tokenizer = load_model()
-       score = calculate_perplexity(input_text, model, tokenizer)
+        score = calculate_perplexity(input_text, model, tokenizer)
 
-st.subheader("Results")
-if score is None:
-    st.warning("Text too short to analyze. Please enter a longer passage.")
-else:
-    st.write(f"Perplexity Score: **{score:.2f}**")
+        st.subheader("Results")
+        if score is None:
+            st.warning("Text too short to analyze. Please enter a longer passage.")
+        else:
+            st.write(f"Perplexity Score: **{score:.2f}**")
 
-    if score < 30:
-        st.error("⚠️ Likely AI-generated.")
-    elif score < 50:
-        st.warning("🤔 Possibly AI-generated.")
-    else:
-        st.success("✅ Likely human-written.")
-
+            if score < 30:
+                st.error("⚠️ Likely AI-generated.")
+            elif score < 50:
+                st.warning("🤔 Possibly AI-generated.")
+            else:
+                st.success("✅ Likely human-written.")
